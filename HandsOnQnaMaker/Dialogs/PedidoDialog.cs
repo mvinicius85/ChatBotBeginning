@@ -49,6 +49,8 @@ namespace HandsOnQnaMaker.Dialogs
                     await context.PostAsync("Aguarde um momento por favor.");
                     var json = await response.Content.ReadAsStringAsync();
                     var resultado = Newtonsoft.Json.JsonConvert.DeserializeObject<Model.Produto>(json);
+                    //var cotacoes = resultado.Cotacoes?.Select(c => $"{c.Nome" : {c.Valor}");
+                    //await context.PostAsync($"{string.Join(", ",cotacores.toArray())});
                     await context.PostAsync("Seguem os dados do produto solicitado: Nome" + resultado.Nome + ", Valor: " + resultado.Preco);
                 }
             }
