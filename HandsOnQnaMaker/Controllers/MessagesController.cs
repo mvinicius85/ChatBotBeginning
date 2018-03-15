@@ -21,21 +21,21 @@ namespace HandsOnQnaMaker
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                //await Conversation.SendAsync(activity, () => new Dialogs.PedidoDialog());
-                await this.SendConversation(activity);
+                await Conversation.SendAsync(activity, () => new Dialogs.PedidoDialog());
+                //await this.SendConversation(activity);
             }
             else if (activity.Type == ActivityTypes.ConversationUpdate)
             {
-                if (activity.MembersAdded != null && activity.MembersAdded.Any())
-                {
-                    foreach (var member in activity.MembersAdded)
-                    {
-                        if (member.Id != activity.Recipient.Id)
-                        {
-                            await this.SendConversation(activity);
-                        }
-                    }
-                }
+                //if (activity.MembersAdded != null && activity.MembersAdded.Any())
+                //{
+                //    foreach (var member in activity.MembersAdded)
+                //    {
+                //        if (member.Id != activity.Recipient.Id)
+                //        {
+                //            await this.SendConversation(activity);
+                //        }
+                //    }
+                //}
             }
             else
             {
@@ -47,7 +47,8 @@ namespace HandsOnQnaMaker
 
         private async Task SendConversation(Activity activity)
         {
-            await Conversation.SendAsync(activity, () => Chain.From(() => FormDialog.FromForm(() => Formulario.Pedido.BuildForm(), FormOptions.PromptFieldsWithValues)));
+            // await Conversation.SendAsync(activity, () => Chain.From(() => FormDialog.FromForm(() => Formulario.Pedido.BuildForm(), FormOptions.PromptFieldsWithValues)));
+            await Conversation.SendAsync(activity, () => new Dialogs.PedidoDialog());
         }
 
         private Activity HandleSystemMessage(Activity message)
