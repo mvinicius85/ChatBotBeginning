@@ -35,25 +35,27 @@ namespace HandsOnQnaMaker.Dialogs
         [LuisIntent("Pedido")]
         public async Task Pedido(IDialogContext context, LuisResult result)
         {
-            var prod = result.Entities?.Select( e => e.Entity);
-            var endpoint = $"http://handsonchatbotwebapi.azurewebsites.net/api/produto/{prod.FirstOrDefault()}";
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync(endpoint);
-                if (!response.IsSuccessStatusCode)
-                {
-                    await context.PostAsync("Não foi possível identificar o produto.");
-                }
-                else
-                {
-                    await context.PostAsync("Aguarde um momento por favor.");
-                    var json = await response.Content.ReadAsStringAsync();
-                    var resultado = Newtonsoft.Json.JsonConvert.DeserializeObject<Model.Produto>(json);
-                    //var cotacoes = resultado.Cotacoes?.Select(c => $"{c.Nome" : {c.Valor}");
-                    //await context.PostAsync($"{string.Join(", ",cotacores.toArray())});
-                    await context.PostAsync("Seguem os dados do produto solicitado: Nome" + resultado.Nome + ", Valor: " + resultado.Preco);
-                }
-            }
+            await context.PostAsync("Envie uma imagem"):
+            context.Wait((c, a) => Proc)
+            //var prod = result.Entities?.Select( e => e.Entity);
+            //var endpoint = $"http://handsonchatbotwebapi.azurewebsites.net/api/produto/{prod.FirstOrDefault()}";
+            //using (var client = new HttpClient())
+            //{
+            //    var response = await client.GetAsync(endpoint);
+            //    if (!response.IsSuccessStatusCode)
+            //    {
+            //        await context.PostAsync("Não foi possível identificar o produto.");
+            //    }
+            //    else
+            //    {
+            //        await context.PostAsync("Aguarde um momento por favor.");
+            //        var json = await response.Content.ReadAsStringAsync();
+            //        var resultado = Newtonsoft.Json.JsonConvert.DeserializeObject<Model.Produto>(json);
+            //        //var cotacoes = resultado.Cotacoes?.Select(c => $"{c.Nome" : {c.Valor}");
+            //        //await context.PostAsync($"{string.Join(", ",cotacores.toArray())});
+            //        await context.PostAsync("Seguem os dados do produto solicitado: Nome" + resultado.Nome + ", Valor: " + resultado.Preco);
+            //    }
+            //}
             //await context.PostAsync("Ainda não estou pronto para receber pedidos.");
         }
         
